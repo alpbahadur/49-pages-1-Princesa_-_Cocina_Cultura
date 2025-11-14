@@ -3,9 +3,754 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>Princesa - Cocina Cultura | Taste Puerto Rico's History</title>
+    <meta name="description" content="Experience authentic 19th-century Puerto Rican cuisine in a magical garden setting. Featuring an extensive collection of Puerto Rican rums and farm-to-table dining in Old San Juan.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom CSS Variables */
+        :root {
+            --primary: #1a2a24;
+            --secondary: #EAE0D5;
+            --accent: #D4AF37;
+            --background: #F7F5F2;
+            --text-primary: #1a2a24;
+            --text-secondary: #5E6D68;
+        }
+
+        /* Font Families */
+        .font-heading {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .font-body {
+            font-family: 'Lora', serif;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+
+        /* Hero Section Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text {
+            animation: fadeInUp 1.5s ease-out 0.5s both;
+        }
+
+        .hero-subtitle {
+            animation: fadeInUp 1.5s ease-out 0.8s both;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1.5s ease-out 1.1s both;
+        }
+
+        /* Scroll-triggered Fade In */
+        .content-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out 0.2s, transform 1s ease-in-out 0.2s;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Rum Bottle Hover Effect */
+        .rum-bottle-image {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .rum-bottle-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 25px rgba(212, 175, 55, 0.7);
+        }
+
+        /* Navigation Transition */
+        nav {
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        nav.transparent {
+            background-color: rgba(26, 42, 36, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Hero Overlay */
+        .hero-overlay {
+            background: linear-gradient(rgba(26, 42, 36, 0.4), rgba(26, 42, 36, 0.6));
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Custom Buttons */
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 0.875rem 2rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #c29d2e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 0.75rem 1.75rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            background-color: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Image Hover Effects */
+        .img-hover {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-hover img {
+            transition: transform 0.6s ease;
+        }
+
+        .img-hover:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 1.5rem auto;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c29d2e;
+        }
+
+        /* Floating Animation for decorative elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
 </head>
-<body>
-    <!-- Content will be added here -->
+<body class="font-body">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transparent">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="./assets/image_2.png" alt="Princesa Logo" class="h-12 md:h-16">
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#our-story" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Our Story</a>
+                    <a href="#menu" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">The Menu</a>
+                    <a href="#rum-library" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">The Rum Library</a>
+                    <a href="#finca" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Finca La Zafra</a>
+                    <a href="#events" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Events</a>
+                    <a href="#contact" class="text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Contact</a>
+                    <a href="tel:787-723-7878" class="btn-primary">Reservations</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="lg:hidden text-[#EAE0D5] focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu lg:hidden">
+                <div class="pt-4 pb-3 space-y-3">
+                    <a href="#our-story" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Our Story</a>
+                    <a href="#menu" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">The Menu</a>
+                    <a href="#rum-library" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">The Rum Library</a>
+                    <a href="#finca" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Finca La Zafra</a>
+                    <a href="#events" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Events</a>
+                    <a href="#contact" class="block text-sm font-heading font-light tracking-wide hover:text-[#D4AF37] transition-colors" style="color: var(--secondary);">Contact</a>
+                    <a href="tel:787-723-7878" class="btn-primary inline-block mt-2">Reservations</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img src="./assets/image_11.jpg" alt="Princesa Garden" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Overlay -->
+        <div class="absolute inset-0 hero-overlay"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <h1 class="hero-text text-5xl md:text-6xl lg:text-7xl font-heading font-extralight text-[#EAE0D5] mb-6 leading-tight">
+                Taste Puerto Rico's History
+            </h1>
+            <p class="hero-subtitle text-xl md:text-2xl font-heading font-light text-[#EAE0D5] mb-10 leading-relaxed">
+                An authentic 19th-century culinary journey
+            </p>
+            <a href="tel:787-723-7878" class="hero-cta btn-primary text-lg">Reserve Your Table</a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 float-animation">
+            <svg class="w-6 h-6 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="our-story" class="py-24 bg-[#F7F5F2] content-section">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Image -->
+                <div class="img-hover rounded-lg overflow-hidden shadow-2xl">
+                    <img src="./assets/image_8.jpg" alt="Historical Interior" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Content -->
+                <div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#1a2a24] mb-4">
+                        A Journey Through Time
+                    </h2>
+                    <div class="section-divider"></div>
+                    <p class="text-base md:text-lg text-[#5E6D68] mb-6 leading-relaxed">
+                        Princesa - Cocina Cultura is more than a restaurant; it's a portal to Puerto Rico's rich culinary heritage. Nestled in the enchanting Paseo de la Princesa in Old San Juan, we are the only establishment dedicated to reviving recipes from 19th-century Puerto Rican cookbooks (1859-1950).
+                    </p>
+                    <p class="text-base md:text-lg text-[#5E6D68] mb-8 leading-relaxed">
+                        Our garden setting, with over 20 trees bonded to a historic wall, creates a magical atmosphere where history comes alive on every plate. We invite you to experience elevated Puerto Rican cuisine in a space that honors our island's past while celebrating its vibrant present.
+                    </p>
+                    <a href="#menu" class="btn-outline">Explore Our Menu</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Showcase Section -->
+    <section id="menu" class="py-24 bg-[#EAE0D5] content-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#1a2a24] mb-4">
+                    Elevated Puerto Rican Cuisine
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg text-[#5E6D68] max-w-3xl mx-auto">
+                    Each dish tells a story, meticulously crafted from historical recipes and presented with modern artistry
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="img-hover h-64">
+                        <img src="./assets/image_0.jpg" alt="Traditional Puerto Rican Dish" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Historical Specialties</h3>
+                        <p class="text-[#5E6D68] text-sm leading-relaxed">
+                            Authentic recipes from centuries-old cookbooks, prepared with traditional techniques and local ingredients
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="img-hover h-64">
+                        <img src="./assets/image_6.jpg" alt="Gourmet Dish" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Farm-to-Table Fresh</h3>
+                        <p class="text-[#5E6D68] text-sm leading-relaxed">
+                            Ingredients sourced from our own Finca La Zafra and local farmers, ensuring peak flavor and sustainability
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="img-hover h-64">
+                        <img src="./assets/image_10.jpg" alt="Dining Atmosphere" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Garden Dining</h3>
+                        <p class="text-[#5E6D68] text-sm leading-relaxed">
+                            Dine under the stars in our enchanting garden setting, where every meal becomes a memorable experience
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rum Library Section -->
+    <section id="rum-library" class="py-24 bg-[#1a2a24] content-section">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div class="text-white order-2 md:order-1">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#EAE0D5] mb-4">
+                        The Rum Library
+                    </h2>
+                    <div class="section-divider"></div>
+                    <p class="text-base md:text-lg text-[#EAE0D5] mb-6 leading-relaxed">
+                        Explore one of the most extensive collections of Puerto Rican rums in the world. Our carefully curated library showcases the island's rich distilling heritage, from rare vintage bottles to contemporary craft expressions.
+                    </p>
+                    <p class="text-base md:text-lg text-[#EAE0D5] mb-8 leading-relaxed">
+                        Whether you're a seasoned rum enthusiast or just beginning your journey, our knowledgeable staff will guide you through tastings and pairings that elevate your dining experience.
+                    </p>
+                    <a href="tel:787-723-7878" class="btn-primary">Book a Rum Tasting</a>
+                </div>
+
+                <!-- Rum Bottles Image -->
+                <div class="order-1 md:order-2">
+                    <div class="rum-bottle-image rounded-lg overflow-hidden shadow-2xl">
+                        <img src="./assets/image_7.jpg" alt="Puerto Rican Rum Collection" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Finca La Zafra Section -->
+    <section id="finca" class="py-24 parallax content-section" style="background-image: url('./assets/image_11.jpg');">
+        <div class="bg-[#1a2a24] bg-opacity-80 py-16">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center text-white">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#EAE0D5] mb-4">
+                        Finca La Zafra
+                    </h2>
+                    <div class="section-divider"></div>
+                    <p class="text-base md:text-lg text-[#EAE0D5] mb-6 leading-relaxed">
+                        Our commitment to authenticity extends beyond the kitchen to our own agroecological farm, Finca La Zafra. Here, we grow many of the fresh ingredients that grace your plate, cultivated using sustainable practices that honor the land.
+                    </p>
+                    <p class="text-base md:text-lg text-[#EAE0D5] mb-8 leading-relaxed">
+                        By maintaining our own farm and partnering with local producers, we ensure that every dish reflects the true flavors of Puerto Rico while supporting our community and preserving our agricultural heritage.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="tel:787-723-7878" class="btn-primary">Visit Us</a>
+                        <a href="#contact" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-24 bg-[#F7F5F2] content-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#1a2a24] mb-4">
+                    Events & Celebrations
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-lg text-[#5E6D68] max-w-3xl mx-auto">
+                    Host your special occasion in our magical garden setting. From intimate gatherings to grand celebrations, we create unforgettable experiences.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="img-hover rounded-lg overflow-hidden shadow-xl">
+                    <img src="./assets/image_9.jpg" alt="Event Space" class="w-full h-96 object-cover">
+                </div>
+                <div class="img-hover rounded-lg overflow-hidden shadow-xl">
+                    <img src="./assets/image_10.jpg" alt="Dining Experience" class="w-full h-96 object-cover">
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                    <div class="text-[#D4AF37] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Private Events</h3>
+                    <p class="text-[#5E6D68] text-sm">
+                        Weddings, anniversaries, and celebrations in our enchanting garden
+                    </p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                    <div class="text-[#D4AF37] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Live Music</h3>
+                    <p class="text-[#5E6D68] text-sm">
+                        Enjoy authentic Puerto Rican music while you dine
+                    </p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-lg shadow-md">
+                    <div class="text-[#D4AF37] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-heading font-light text-[#1a2a24] mb-3">Group Dining</h3>
+                    <p class="text-[#5E6D68] text-sm">
+                        Customized menus for groups and corporate events
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-[#EAE0D5] content-section">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Information -->
+                <div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#1a2a24] mb-4">
+                        Visit Us
+                    </h2>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#D4AF37] mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-heading font-light text-lg text-[#1a2a24] mb-1">Location</h3>
+                                <p class="text-[#5E6D68]">
+                                    Paseo de la Princesa<br>
+                                    Old San Juan, PR 00901
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#D4AF37] mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-heading font-light text-lg text-[#1a2a24] mb-1">Phone</h3>
+                                <a href="tel:787-723-7878" class="text-[#5E6D68] hover:text-[#D4AF37] transition-colors">
+                                    787-723-7878
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#D4AF37] mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-heading font-light text-lg text-[#1a2a24] mb-1">Email</h3>
+                                <a href="mailto:princesapr@zaprici.com" class="text-[#5E6D68] hover:text-[#D4AF37] transition-colors">
+                                    princesapr@zaprici.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#D4AF37] mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h3 class="font-heading font-light text-lg text-[#1a2a24] mb-1">Hours</h3>
+                                <p class="text-[#5E6D68]">
+                                    Tuesday - Sunday<br>
+                                    5:00 PM - 11:00 PM
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/princesacocinacultura/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-[#D4AF37] rounded-full flex items-center justify-center hover:bg-[#c29d2e] transition-colors">
+                            <img src="./assets/image_5.png" alt="Facebook" class="w-5 h-5">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#1a2a24] mb-4">
+                        Stay Connected
+                    </h2>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+                    <p class="text-[#5E6D68] mb-8 leading-relaxed">
+                        Subscribe to our newsletter for exclusive updates, special events, and seasonal menu highlights.
+                    </p>
+
+                    <form class="space-y-4" onsubmit="handleNewsletter(event)">
+                        <div>
+                            <input
+                                type="text"
+                                placeholder="Your Name"
+                                required
+                                class="w-full px-4 py-3 bg-white border border-[#D4AF37] rounded focus:outline-none focus:border-[#c29d2e] transition-colors font-body"
+                            >
+                        </div>
+                        <div>
+                            <input
+                                type="email"
+                                placeholder="Your Email"
+                                required
+                                class="w-full px-4 py-3 bg-white border border-[#D4AF37] rounded focus:outline-none focus:border-[#c29d2e] transition-colors font-body"
+                            >
+                        </div>
+                        <button type="submit" class="btn-primary w-full text-center">
+                            Subscribe
+                        </button>
+                    </form>
+
+                    <div class="mt-12 p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="font-heading font-light text-xl text-[#1a2a24] mb-3">Reserve Your Table</h3>
+                        <p class="text-[#5E6D68] text-sm mb-4">
+                            Experience the magic of Princesa. Call us today to make your reservation and step into Puerto Rico's culinary history.
+                        </p>
+                        <a href="tel:787-723-7878" class="btn-outline w-full text-center block">
+                            Call Now: 787-723-7878
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a2a24] text-[#EAE0D5] py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <!-- Logo and Description -->
+                <div>
+                    <img src="./assets/image_2.png" alt="Princesa Logo" class="h-16 mb-4">
+                    <p class="text-sm text-[#EAE0D5] opacity-80">
+                        Reviving 19th-century Puerto Rican cuisine in the heart of Old San Juan.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-heading font-light text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#our-story" class="hover:text-[#D4AF37] transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-[#D4AF37] transition-colors">The Menu</a></li>
+                        <li><a href="#rum-library" class="hover:text-[#D4AF37] transition-colors">Rum Library</a></li>
+                        <li><a href="#finca" class="hover:text-[#D4AF37] transition-colors">Finca La Zafra</a></li>
+                        <li><a href="#events" class="hover:text-[#D4AF37] transition-colors">Events</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-heading font-light text-lg mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>Paseo de la Princesa</li>
+                        <li>Old San Juan, PR 00901</li>
+                        <li><a href="tel:787-723-7878" class="hover:text-[#D4AF37] transition-colors">787-723-7878</a></li>
+                        <li><a href="mailto:princesapr@zaprici.com" class="hover:text-[#D4AF37] transition-colors">princesapr@zaprici.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-[#EAE0D5] border-opacity-20 pt-8 text-center text-sm opacity-80">
+                <p>&copy; 2025 Princesa - Cocina Cultura. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Sticky Navigation with Scroll Effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('transparent');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.add('transparent');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Scroll-triggered Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all content sections
+        const contentSections = document.querySelectorAll('.content-section');
+        contentSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Newsletter Form Handler
+        function handleNewsletter(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing! We\'ll keep you updated with the latest from Princesa - Cocina Cultura.');
+            event.target.reset();
+            return false;
+        }
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+
+                // Don't prevent default for non-navigation links
+                if (href === '#' || href === '') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            parallaxElements.forEach(el => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.3;
+                el.style.transform = `translate3d(0px, ${rate}px, 0px)`;
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
 </body>
 </html>
