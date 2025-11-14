@@ -111,14 +111,6 @@
             background: linear-gradient(rgba(26, 42, 36, 0.4), rgba(26, 42, 36, 0.6));
         }
 
-        /* Parallax Effect */
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
         /* Custom Buttons */
         .btn-primary {
             background-color: var(--accent);
@@ -407,8 +399,11 @@
     </section>
 
     <!-- Finca La Zafra Section -->
-    <section id="finca" class="py-24 parallax content-section" style="background-image: url('./assets/image_11.jpg');">
-        <div class="bg-[#1a2a24] bg-opacity-80 py-16">
+    <section id="finca" class="py-24 relative content-section overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="./assets/image_11.jpg" alt="Finca La Zafra" class="w-full h-full object-cover">
+        </div>
+        <div class="relative z-10 bg-[#1a2a24] bg-opacity-80 py-16">
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto text-center text-white">
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-extralight text-[#EAE0D5] mb-4">
@@ -734,16 +729,6 @@
                         behavior: 'smooth'
                     });
                 }
-            });
-        });
-
-        // Parallax Effect
-        window.addEventListener('scroll', () => {
-            const parallaxElements = document.querySelectorAll('.parallax');
-            parallaxElements.forEach(el => {
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.3;
-                el.style.transform = `translate3d(0px, ${rate}px, 0px)`;
             });
         });
 
